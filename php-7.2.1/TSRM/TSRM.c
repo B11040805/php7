@@ -27,16 +27,16 @@ typedef struct _tsrm_tls_entry tsrm_tls_entry;
 #endif
 
 struct _tsrm_tls_entry {
-	void **storage;
-	int count;
-	THREAD_T thread_id;
+	void **storage; // 资源数组
+	int count; // 拥有的资源数，storage的大小
+	THREAD_T thread_id; // 所属的线程id
 	tsrm_tls_entry *next;
 };
 
 
 typedef struct {
-	size_t size;
-	ts_allocate_ctor ctor;
+	size_t size; // 资源的大小
+	ts_allocate_ctor ctor; // 初始化函数
 	ts_allocate_dtor dtor;
 	int done;
 } tsrm_resource_type;
