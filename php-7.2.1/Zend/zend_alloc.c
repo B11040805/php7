@@ -52,7 +52,9 @@
  * The library uses C preprocessor tricks that substitute calls to emalloc()
  * with more specialized routines when the requested size is known.
  */
-
+// 内存管理的类，
+// 带着问题看源码，内存是怎么分配的，这么做有什么好处，想解决什么问题
+// 代码风格上的问题
 #include "zend.h"
 #include "zend_alloc.h"
 #include "zend_globals.h"
@@ -279,8 +281,8 @@ struct _zend_mm_heap {
 };
 
 struct _zend_mm_chunk {
-	zend_mm_heap      *heap;
-	zend_mm_chunk     *next;
+	zend_mm_heap      *heap;  // 原来是堆内存
+	zend_mm_chunk     *next; // 双向链表
 	zend_mm_chunk     *prev;
 	uint32_t           free_pages;				/* number of free pages */
 	uint32_t           free_tail;               /* number of free pages at the end of chunk */
@@ -364,7 +366,7 @@ static ZEND_COLD ZEND_NORETURN void zend_mm_panic(const char *message)
 #endif
 	exit(1);
 }
-
+// 内存安全是什么
 static ZEND_COLD ZEND_NORETURN void zend_mm_safe_error(zend_mm_heap *heap,
 	const char *format,
 	size_t limit,
