@@ -11,6 +11,8 @@
         "queue": "cpp",
         "string": "cpp",
         "utility": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "ios": "cpp",
+        "fpm_worker_pool.h": "c"
     }
 }

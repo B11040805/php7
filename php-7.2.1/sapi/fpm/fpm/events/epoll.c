@@ -65,6 +65,7 @@ struct fpm_event_module_s *fpm_event_epoll_module() /* {{{ */
 /*
  * Init the module
  */
+//初始化
 static int fpm_event_epoll_init(int max) /* {{{ */
 {
 	if (max < 1) {

@@ -5,15 +5,15 @@
 #ifndef FPM_EVENTS_H
 #define FPM_EVENTS_H 1
 
-#define FPM_EV_TIMEOUT  (1 << 0)
-#define FPM_EV_READ     (1 << 1)
-#define FPM_EV_PERSIST  (1 << 2)
-#define FPM_EV_EDGE     (1 << 3)
+#define FPM_EV_TIMEOUT  (1 << 0) // 1
+#define FPM_EV_READ     (1 << 1) // 2
+#define FPM_EV_PERSIST  (1 << 2) // 4
+#define FPM_EV_EDGE     (1 << 3) // 8
 
 #define fpm_event_set_timer(ev, flags, cb, arg) fpm_event_set((ev), -1, (flags), (cb), (arg))
 
 struct fpm_event_s {
-	int fd;                   /* not set with FPM_EV_TIMEOUT */
+	int fd;                 // IO 句柄  /* not set with FPM_EV_TIMEOUT */
 	struct timeval timeout;   /* next time to trigger */
 	struct timeval frequency;
 	void (*callback)(struct fpm_event_s *, short, void *);

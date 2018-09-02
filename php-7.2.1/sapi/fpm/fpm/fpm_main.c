@@ -260,6 +260,7 @@ static int extension_name_cmp(const zend_llist_element **f, const zend_llist_ele
 {
 	zend_extension *fe = (zend_extension*)(*f)->data;
 	zend_extension *se = (zend_extension*)(*s)->data;
+	// 比较字符串
 	return strcmp(fe->name, se->name);
 }
 /* }}} */
@@ -832,7 +833,7 @@ static int sapi_cgi_deactivate(void) /* {{{ */
 	return SUCCESS;
 }
 /* }}} */
-
+// php cgi startup函数
 static int php_cgi_startup(sapi_module_struct *sapi_module) /* {{{ */
 {
 	if (php_module_startup(sapi_module, &cgi_module_entry, 1) == FAILURE) {

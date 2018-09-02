@@ -2086,6 +2086,7 @@ int php_module_startup(sapi_module_struct *sf, zend_module_entry *additional_mod
 	zend_utility_values zuv;
 	int retval = SUCCESS, module_number=0;	/* for REGISTER_INI_ENTRIES() */
 	char *php_os;
+	// zend 扩展
 	zend_module_entry *module;
 
 #ifdef PHP_WIN32
@@ -2119,7 +2120,9 @@ int php_module_startup(sapi_module_struct *sf, zend_module_entry *additional_mod
 
 	module_shutdown = 0;
 	module_startup = 1;
+	//初始化请求
 	sapi_initialize_empty_request();
+	// 激活sapi
 	sapi_activate();
 
 	if (module_initialized) {
@@ -2127,7 +2130,7 @@ int php_module_startup(sapi_module_struct *sf, zend_module_entry *additional_mod
 	}
 
 	sapi_module = *sf;
-
+	// 设置输出
 	php_output_startup();
 
 #ifdef ZTS
@@ -2139,6 +2142,7 @@ int php_module_startup(sapi_module_struct *sf, zend_module_entry *additional_mod
 	memset(&core_globals, 0, sizeof(core_globals));
 	php_startup_ticks();
 #endif
+	// 初始化gc垃圾回收
 	gc_globals_ctor();
 
 	zuf.error_function = php_error_cb;
@@ -2238,7 +2242,7 @@ int php_module_startup(sapi_module_struct *sf, zend_module_entry *additional_mod
 	} else {
 		REGISTER_MAIN_STRINGL_CONSTANT("PHP_BINARY", "", 0, CONST_PERSISTENT | CONST_CS);
 	}
-
+	//注册输出常量
 	php_output_register_constants();
 	php_rfc1867_register_constants();
 
@@ -2322,6 +2326,7 @@ int php_module_startup(sapi_module_struct *sf, zend_module_entry *additional_mod
 		}
 	}
 
+	//根据php.ini 禁用函数和类
 	/* disable certain classes and functions as requested by php.ini */
 	php_disable_functions();
 	php_disable_classes();
@@ -2448,6 +2453,7 @@ void php_module_shutdown(void)
 	(void)php_win32_shutdown_random_bytes();
 #endif
 
+	// flush输出
 	sapi_flush();
 
 	zend_shutdown();

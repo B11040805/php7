@@ -26,8 +26,8 @@
 #include <signal.h>
 
 #include "zend.h"
-#include "zend_compile.h"
-#include "zend_execute.h"
+#include "zend_compile.h"// 编译
+#include "zend_execute.h"//执行
 #include "zend_API.h"
 #include "zend_ptr_stack.h"
 #include "zend_constants.h"
@@ -167,6 +167,7 @@ ZEND_API const zend_internal_function zend_pass_function = {
 	  + (ZEND_VM_STACK_PAGE_SIZE - 1)) & ~(ZEND_VM_STACK_PAGE_SIZE - 1))
 
 static zend_always_inline zend_vm_stack zend_vm_stack_new_page(size_t size, zend_vm_stack prev) {
+	// 
 	zend_vm_stack page = (zend_vm_stack)emalloc(size);
 
 	page->top = ZEND_VM_STACK_ELEMENTS(page);
